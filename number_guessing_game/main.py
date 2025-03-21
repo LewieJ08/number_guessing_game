@@ -9,10 +9,9 @@ def welcome_msg():
 
 
 def random_number():
-    return random.randint(1,101)
+    return random.randint(1,100)
 
 def difficulty():
-
     print("Easy: 10 Chances")
     print("Meduim: 5 Chances")
     print("Hard: 3 Chances")
@@ -39,11 +38,18 @@ def start_game():
         try:
             guess = int(input("Guess> "))
             guesses += 1
-            chances -= 1
             if guess == number:
                 print(f"Congratulations! You guessed the number in {guesses} guesses")
                 return guesses
             
+            elif guess <= 0 :
+                print("Guess must be between 1-100")
+                continue
+            
+            elif guess >= 100 :
+                print("Guess must be between 1-100")
+                continue
+
             elif guess != number:
                 if guess > number:
                     print(f"Incorrect! The number is less than {guess}")
@@ -53,13 +59,10 @@ def start_game():
                     print(f"Incorrect! The number is greater than {guess}")
                     continue
 
-            elif guess not in range(0-101):
-                print("Guess must be between 1-100")
-                chances += 1
-
         except ValueError:
             print("Invalid Input")
             continue
+
     print(f"Game over! You run out of chances. The number was {number}")
     return guesses
 
