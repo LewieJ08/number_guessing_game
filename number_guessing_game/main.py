@@ -1,15 +1,18 @@
 import random
 import os
 
+
 def welcome_msg():
     print("Welcome to the Number Guessing Game!")
-    print("Im thinking of a Random Number")
-    print("You will be given a number of chances to guess the random number based on the difficulty you select")
+    print("Im thinking of a random number between 1 and 100.")
+    print("You will be given a number of chances to guess the random number based on the difficulty you select\n")
+
 
 def random_number():
     return random.randint(1,101)
 
 def difficulty():
+
     print("Easy: 10 Chances")
     print("Meduim: 5 Chances")
     print("Hard: 3 Chances")
@@ -26,11 +29,45 @@ def difficulty():
             print("Invalid input.")
             continue
 
+
+def start_game():
+    number = random_number()
+    chances = difficulty()
+    guesses = 0
+
+    while guesses < chances:
+        try:
+            guess = int(input("Guess> "))
+            guesses += 1
+            chances -= 1
+            if guess == number:
+                print(f"Congratulations! You guessed the number in {guesses} guesses")
+                return guesses
+            
+            elif guess != number:
+                if guess > number:
+                    print(f"Incorrect! The number is less than {guess}")
+                    continue
+
+                elif guess < number:
+                    print(f"Incorrect! The number is greater than {guess}")
+                    continue
+
+            elif guess not in range(0-101):
+                print("Guess must be between 1-100")
+                chances += 1
+
+        except ValueError:
+            print("Invalid Input")
+            continue
+    print(f"Game over! You run out of chances. The number was {number}")
+    return guesses
+
+
 def main():
     os.system("cls")
     welcome_msg()
-    number = random_number()
-    chances = difficulty()
-    
+    guesses = start_game()
+
 if __name__ == "__main__":
     main()
