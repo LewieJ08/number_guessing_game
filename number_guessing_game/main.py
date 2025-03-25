@@ -1,5 +1,7 @@
 import random
 import os
+import datetime
+import sys
 
 def welcome_msg():
     print("Welcome to the Number Guessing Game!")
@@ -36,11 +38,11 @@ def start_game():
 
     while guesses < chances:
         try:
-            guess = int(input("Guess> "))
+            guess = int(input("\nGuess> "))
             guesses += 1
             if guess == number:
                 print(f"Congratulations! You guessed the number in {guesses} guesses\n")
-                return guesses
+                return guesses, chances
             
             elif guess <= 0 :
                 print("Guess must be between 1-100")
@@ -66,23 +68,44 @@ def start_game():
             continue
 
     print(f"Game over! You run out of chances. The number was {number}\n")
-    return guesses
+    chances = None
+    return guesses, chances
 
 def main():
     os.system("cls")
+
+    scores = {"easy": float("inf"), "medium": float("inf"), "hard": float("inf")}
+
+
     welcome_msg()
     while True:
-        guesses = start_game()
+        guesses, chances = start_game()
 
+        if chances != None:
+            if chances == 10:
+                if guesses < scores["easy"]:
+                    print(f"Good job! you have reached a new high score of {guesses} for EASY mode.")
+                    scores["easy"] = guesses
+
+            elif chances == 5:
+                if guesses < scores["medium"]:
+                    print(f"Good job! you have reached a new high score of {guesses} for MEDIUM mode.")
+                    scores["medium"] = guesses
+
+            elif chances == 3:
+                if guesses < scores["hard"]:
+                    print(f"Good job! you have reached a new high score of {guesses} for HARD mode.")
+                    scores["hard"] = guesses
+            
         game_end = True
         while game_end:
             choice = input("Would you like to play again? (y/n)> ").lower().strip()
             if choice == "y":
-                continue
+                game_end = False
             elif choice == "n":
-                break
+                sys.exit()
             else:
-                print("Invalid input:")
+                print("Invalid input")
             
 
 if __name__ == "__main__":
