@@ -1,7 +1,6 @@
 import random
 import os
 
-
 def welcome_msg():
     print("Welcome to the Number Guessing Game!")
     print("Im thinking of a random number between 1 and 100.")
@@ -10,6 +9,7 @@ def welcome_msg():
 
 def random_number():
     return random.randint(1,100)
+
 
 def difficulty():
     print("Easy: 10 Chances")
@@ -39,15 +39,17 @@ def start_game():
             guess = int(input("Guess> "))
             guesses += 1
             if guess == number:
-                print(f"Congratulations! You guessed the number in {guesses} guesses")
+                print(f"Congratulations! You guessed the number in {guesses} guesses\n")
                 return guesses
             
             elif guess <= 0 :
                 print("Guess must be between 1-100")
+                guesses -= 1
                 continue
             
             elif guess >= 100 :
                 print("Guess must be between 1-100")
+                guesses -= 1
                 continue
 
             elif guess != number:
@@ -63,14 +65,25 @@ def start_game():
             print("Invalid Input")
             continue
 
-    print(f"Game over! You run out of chances. The number was {number}")
+    print(f"Game over! You run out of chances. The number was {number}\n")
     return guesses
-
 
 def main():
     os.system("cls")
     welcome_msg()
-    guesses = start_game()
+    while True:
+        guesses = start_game()
+
+        game_end = True
+        while game_end:
+            choice = input("Would you like to play again? (y/n)> ").lower().strip()
+            if choice == "y":
+                continue
+            elif choice == "n":
+                break
+            else:
+                print("Invalid input:")
+            
 
 if __name__ == "__main__":
     main()
