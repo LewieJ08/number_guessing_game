@@ -1,6 +1,6 @@
 import random
 import os
-import datetime
+import time
 import sys
 
 def welcome_msg():
@@ -32,6 +32,7 @@ def difficulty():
 
 
 def start_game():
+    start_time = time.time()
     number = random_number()
     chances = difficulty()
     guesses = 0
@@ -41,7 +42,10 @@ def start_game():
             guess = int(input("\nGuess> "))
             guesses += 1
             if guess == number:
-                print(f"Congratulations! You guessed the number in {guesses} guesses\n")
+                end_time = time.time()
+                time_taken = end_time - start_time
+                print(f"Congratulations! You guessed the number in {guesses} guesses")
+                print(f"Time taken: {round(time_taken)} seconds\n")
                 return guesses, chances
             
             elif guess <= 0 :
@@ -49,7 +53,7 @@ def start_game():
                 guesses -= 1
                 continue
             
-            elif guess >= 100 :
+            elif guess > 100 :
                 print("Guess must be between 1-100")
                 guesses -= 1
                 continue
@@ -75,7 +79,6 @@ def main():
     os.system("cls")
 
     scores = {"easy": float("inf"), "medium": float("inf"), "hard": float("inf")}
-
 
     welcome_msg()
     while True:
