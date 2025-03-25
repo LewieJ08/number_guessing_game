@@ -3,11 +3,11 @@ from setuptools import setup, find_packages
 setup(
     name="number_guessing_game",
     version="1.0.0",
-    packages=find_packages(),  # Automatically finds package directories
+    packages=find_packages(), 
     install_requires=[],  # No external dependencies needed
     entry_points={  
         "console_scripts": [
-            "number-guessing-game=number_guessing_game.main:main"  # Links CLI command to main()
+            "number-guessing-game=number_guessing_game.main:main" 
         ]
     },
     author="Lewie Jackson",
